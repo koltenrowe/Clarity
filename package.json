@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "homepage": "http://koltenrowe.github.io/Clarity/",
+  "homepage": "https://koltenrowe.github.io/Clarity/",
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
