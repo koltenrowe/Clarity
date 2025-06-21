@@ -68,5 +68,5 @@ body {
   @apply bg-gray-900 text-gray-100;
   margin: 0; /* Ensure no default body margin */
   min-height: 100vh; /* Ensure body takes full viewport height */
-  overflow: hidden; /* Prevent scrolling issues if content slightly exceeds viewport */
+  overflow-y: auto; /* Prevent scrolling issues if content slightly exceeds viewport */
 }
