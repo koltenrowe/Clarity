@@ -4,10 +4,12 @@ import ResearchView from './components/ResearchView';
 import ServicesView from './components/ServicesView';
 import ProfilesView from './components/ProfilesView';
 import ReportAndChatView from './components/ReportAndChatView';
+import LandingPage from './components/LandingPage'; // Import the new component
 
 // Main App Component
 export default function App() {
-    const [view, setView] = useState('research'); // 'research', 'services', 'profiles', 'report', 'chat'
+    // Set the initial view to 'landing'
+    const [view, setView] = useState('landing'); // 'landing', 'research', 'services', etc.
     const [profiles, setProfiles] = useState([
         {
             id: 1,
@@ -145,8 +147,16 @@ export default function App() {
         setActiveProfile(null);
     }
 
+    // Function to pass to the landing page to enter the main app
+    const enterApp = () => {
+        setView('research'); // Or any other default view you prefer
+    };
+
     const renderView = () => {
         switch (view) {
+            // Add the new 'landing' case
+            case 'landing':
+                return <LandingPage enterApp={enterApp} />;
             case 'services':
                 return <ServicesView services={services} setServices={setServices} />;
             case 'profiles':
@@ -170,7 +180,8 @@ export default function App() {
     };
 
     return (
-        <div className="bg-slate-50 min-h-screen font-sans text-gray-800">
+        // Changed the main background to white to match the landing page base
+        <div className="bg-white min-h-screen font-sans text-gray-800">
             <style>{`
                 @keyframes bounceInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
                 .animate-bounce-in-up { animation: bounceInUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
@@ -184,9 +195,13 @@ export default function App() {
                 ::-webkit-scrollbar-thumb { background-color: #94a3b8; border-radius: 6px; border: 3px solid #f1f5f9; }
                 ::-webkit-scrollbar-thumb:hover { background-color: #64748b; }
             `}</style>
-            {view !== 'report' && <Header setView={setView} navigateToResearch={navigateToResearch} activeView={view} />}
-            <main className={view !== 'report' ? 'px-4 py-8 sm:px-6 lg:px-8' : ''}>
-                {view !== 'report' ? (
+            
+            {/* Conditionally render the main app header */}
+            {view !== 'landing' && view !== 'report' && <Header setView={setView} navigateToResearch={navigateToResearch} activeView={view} />}
+            
+            {/* Adjust main padding for different views */}
+            <main className={view !== 'landing' && view !== 'report' ? 'px-4 py-8 sm:px-6 lg:px-8' : ''}>
+                {view !== 'report' && view !== 'landing' ? (
                      <div key={view} className="animate-bounce-in-up">
                         {renderView()}
                      </div>
